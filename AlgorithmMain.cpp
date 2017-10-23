@@ -121,23 +121,24 @@ int main() {//
 
 	print(bArray, A_length - 1, "MERGE_SORT");
 	print(cArray, A_length - 1, "QUICKSORT");*/
+
 	int m = 10;
 	int nf = 10;
 	int ns = 5;
-	int A[10][10000];
-	int B[10000];
-	int talg1[10][10000];
+	int A[10][100000];
+	int B[100000];
+	int talg1[10][100000];
 	int tavgalg1 = 0;
 
 	for (int i = 0; i <= 9; i++) {
-		for (int j = 0; j <= 9999; j++) {
+		for (int j = 0; j <= 99999; j++) {
 			A[i][j] = rand();
 		}
 	}
 
-	for (int n = 5000; n <= 9999; n = n + 5) {
+	for (int n = 5000; n <= 99999; n = n + 5) {
 		for (int i = 0; i <= 9; i++) {
-			for (int k = 0; k <= 9999; k++) {
+			for (int k = 0; k <= 99999; k++) {
 				B[k] = A[i][k];
 			}
 			auto t1 = chrono::steady_clock::now();
