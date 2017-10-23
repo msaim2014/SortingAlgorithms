@@ -28,7 +28,7 @@ void INSERTION_SORT(int A[], int A_length) {
 		}
 		A[i + 1] = key;
 	}
-	print(A, A_length, "INSERTION_SORT");
+	//print(A, A_length, "INSERTION_SORT");
 }
 
 int * MERGE_SORT(int B[], int p, int r) {
@@ -108,7 +108,7 @@ void print(int array[], int numElements, string functionName) {
 	cout << endl;
 }
 
-int main() {
+int main() {//
 	/*int A[] = { 10,9,8,7,6,5,4,3,2,1 };
 	int B[] = { 10,9,8,7,6,5,4,3,2,1 };
 	int C[] = { 10,9,8,7,6,5,4,3,2,1 };
@@ -124,18 +124,36 @@ int main() {
 	int m = 10;
 	int nf = 10;
 	int ns = 5;
-	int A[10][10];
-	int B[10];
-	int talg1[10];
+	int A[10][10000];
+	int B[10000];
+	int talg1[10][10000];
 	int tavgalg1 = 0;
 
 	for (int i = 0; i <= 9; i++) {
-		for (int j = 0; j <= 9; j++) {
+		for (int j = 0; j <= 9999; j++) {
 			A[i][j] = rand();
 		}
 	}
+
+	for (int n = 5000; n <= 9999; n = n + 5) {
+		for (int i = 0; i <= 9; i++) {
+			for (int k = 0; k <= 9999; k++) {
+				B[k] = A[i][k];
+			}
+			auto t1 = chrono::steady_clock::now();
+			INSERTION_SORT(B, n-1);
+			auto t2 = chrono::steady_clock::now();
+			double elapsed_time = double(chrono::duration_cast<chrono::microseconds>(t2 - t1).count());
+			talg1[i][n] = elapsed_time;
+		}
+		for (int i = 0; i <= 9; i++) {
+			tavgalg1 = tavgalg1 + talg1[i][n];
+		}
+		tavgalg1 = tavgalg1 / 10;
+		cout << endl << "Avergage Time in Microseconds to run INSERTION_SORT: " << tavgalg1 << endl;
+	}
 	
-	for (int n = 5; n <= 9; n = n + 5) {
+	/*for (int n = 5; n <= 9; n = n + 5) {
 		for (int i = 0; i <= 9; i = i + 1) {
 			for (int k = 0; k <= 9; k++) {
 				B[k] = A[i][k];
@@ -151,7 +169,7 @@ int main() {
 		}
 		tavgalg1 = tavgalg1 / 10;
 		cout << endl << "Avergage Time in Microseconds to run INSERTION_SORT: " << tavgalg1 << endl;
-	}
+	}*/
 
 	return 0;
 }
