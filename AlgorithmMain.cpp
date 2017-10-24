@@ -44,8 +44,8 @@ int * MERGE_SORT(int B[], int p, int r) {
 }
 
 void MERGE(int B[], int p, int q, int r) {	
-	int n1 = q - p + 1;
-	int n2 = r - q;
+	const int n1 = q - p + 1;
+	const int n2 = r - q;
 	int *L = new int[n1 - 1];
 	int *R = new int[n2 - 1];
 
@@ -108,7 +108,16 @@ void print(int array[], int numElements, string functionName) {
 	cout << endl;
 }
 
-int main() {//
+int main() {
+	cout.setf(ios::fixed);
+	cout.precision(1);
+	//INSERTION_SORT T(n)=theta(n^2)
+	//MERGE_SORT T(n)=theta(nlgn)
+	//QUICKSORT worst case RT=theta(n^2) or expected RT=theta(nlgn)
+	//partition RT=theta(n)
+	//merge RT=theta(n)
+
+
 	/*int A[] = { 10,9,8,7,6,5,4,3,2,1 };
 	int B[] = { 10,9,8,7,6,5,4,3,2,1 };
 	int C[] = { 10,9,8,7,6,5,4,3,2,1 };
@@ -122,23 +131,24 @@ int main() {//
 	print(bArray, A_length - 1, "MERGE_SORT");
 	print(cArray, A_length - 1, "QUICKSORT");*/
 
-	int m = 10;
-	int nf = 10;
-	int ns = 5;
-	int A[10][100000];
-	int B[100000];
-	int talg1[10][100000];
-	int tavgalg1 = 0;
+	const int m = 10;
+	const int nf = 100;
+	const int ns = 50;
+	int A[m][nf];
+	int B[nf];
+	double talg1[m][nf];
+	double tavgalg1 = 0;
+	double tavgAlgArray[nf];
 
-	for (int i = 0; i <= 9; i++) {
-		for (int j = 0; j <= 99999; j++) {
+	for (int i = 0; i <= m-1; i++) {
+		for (int j = 0; j <= nf-1; j++) {
 			A[i][j] = rand();
 		}
 	}
 
-	for (int n = 5000; n <= 99999; n = n + 5) {
-		for (int i = 0; i <= 9; i++) {
-			for (int k = 0; k <= 99999; k++) {
+	for (int n = ns; n <= nf-1; n = n + 5) {
+		for (int i = 0; i <= m-1; i++) {
+			for (int k = 0; k <= n-1; k++) {
 				B[k] = A[i][k];
 			}
 			auto t1 = chrono::steady_clock::now();
@@ -147,11 +157,12 @@ int main() {//
 			double elapsed_time = double(chrono::duration_cast<chrono::microseconds>(t2 - t1).count());
 			talg1[i][n] = elapsed_time;
 		}
-		for (int i = 0; i <= 9; i++) {
+		for (int i = 0; i <= m-1; i++) {
 			tavgalg1 = tavgalg1 + talg1[i][n];
 		}
-		tavgalg1 = tavgalg1 / 10;
-		cout << endl << "Avergage Time in Microseconds to run INSERTION_SORT: " << tavgalg1 << endl;
+		tavgalg1 = tavgalg1 / m;
+		tavgAlgArray[n] = tavgalg1;
+		cout << endl << "Avergage Time in Milliseconds to run INSERTION_SORT: " << tavgalg1 << " for: " << n << endl;
 	}
 	
 	/*for (int n = 5; n <= 9; n = n + 5) {
