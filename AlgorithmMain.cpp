@@ -162,10 +162,6 @@ int main() {
 
 	double tavgalg = 0;
 	double tavgAlgArray[nf];
-	/*double tavgalg2 = 0;
-	double tavgAlg2Array[nf];
-	double tavgalg3 = 0;
-	double tavgAlg3Array[nf];*/
 	
 	for (int i = 0; i <= m-1; i++) {
 		for (int j = 0; j <= nf-1; j++) {
@@ -173,7 +169,8 @@ int main() {
 		}
 	}
 
-	/*file << "INSERTION_SORT***********************************************" << endl;
+	file << "INSERTION_SORT***********************************************" << endl;
+	file << "TIME" << "   " << "n" << endl;
 	for (int n = ns; n <= nf; n = n + sigma) {
 		for (int i = 0; i <= m-1; i++) {
 			for (int k = 0; k <= n-1; k++) {
@@ -189,14 +186,14 @@ int main() {
 			tavgalg = tavgalg + talg1[i][n];
 		}
 		tavgalg = tavgalg / m;
-		tavgAlgArray[n] = tavgalg;
+		tavgAlgArray[n-1] = tavgalg;
 		cout << endl << "Avergage Time in Milliseconds to run INSERTION_SORT: " << tavgalg << " for: " << n << endl;
-		file << "TIME" << "   " << "n" << endl;
-		file << tavgalg << "   " << n << endl;
-	}*/
+		file << tavgalg << "," << n << endl;
+	}
 	
-	/*file << "MERGE_SORT****************************************************" << endl;
-	for (int n = ns; n <= nf-1; n = n + sigma) {
+	file << "MERGE_SORT****************************************************" << endl;
+	file << "TIME" << "   " << "n" << endl;
+	for (int n = ns; n <= nf; n = n + sigma) {
 		for (int i = 0; i <= m - 1; i++) {
 			for (int k = 0; k <= n - 1; k++) {
 				C[k] = A[i][k];
@@ -211,14 +208,14 @@ int main() {
 			tavgalg = tavgalg + talg2[i][n];
 		}
 		tavgalg = tavgalg / m;
-		tavgAlgArray[n] = tavgalg;
+		tavgAlgArray[n-1] = tavgalg;
 		cout << endl << "Avergage Time in Milliseconds to run MERGE_SORT: " << tavgalg << " for: " << n << endl;
-		file << "TIME" << "   " << "n" << endl;
-		file << tavgalg << "   " << n << endl;
-	}*/
+		file << tavgalg << "," << n << endl;
+	}
 
 	file << "QUICKSORT*************************************************************" << endl;
-	for (int n = ns; n <= nf-1; n = n + sigma) {
+	file << "TIME" << "   " << "n" << endl;
+	for (int n = ns; n <= nf; n = n + sigma) {
 		for (int i = 0; i <= m - 1; i++) {
 			for (int k = 0; k <= n - 1; k++) {
 				D[k] = A[i][k];
@@ -233,10 +230,9 @@ int main() {
 			tavgalg = tavgalg + talg3[i][n];
 		}
 		tavgalg = tavgalg / m;
-		tavgAlgArray[n] = tavgalg;
+		tavgAlgArray[n-1] = tavgalg;
 		cout << endl << "Avergage Time in Milliseconds to run QUICKSORT: " << tavgalg << " for: " << n << endl;
-		file << "TIME" << "   " << "n" << endl;
-		file << tavgalg << "   " << n << endl;
+		file << tavgalg << "," << n << endl;
 	}
 
 	file.close();
