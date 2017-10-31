@@ -8,13 +8,38 @@
 #include <chrono>
 using namespace std;
 
-void INSERTION_SORT(int A[],int A_length);
-int * MERGE_SORT(int B[], int p, int r);
-void MERGE(int B[], int p, int q, int r);
-int * QUICKSORT(int C[], int p, int r);
-int PARTITION(int C[], int p, int r);
-void print(int array[], int numElements, string functionName);
+//*****************************************************************************
+//P R O G R A M  H E A D E R
+//  Name:  Muhammad Saim
+//	Z#:  23306519
+//	Instructor:  Dr. Cardei
+//	Class:  Design and Analysis of Algorithms
+//	Term:  Fall 2017
+//	Algorithm Project
+//	Due Date:   October 30,2017
+//	Due Time:  11:59PM
+//	Points:  90
+//	
+//  Description: This program sorts arrays of different number of elements. Each 
+//	    variation in elements in the array are tested 10 times and the average of
+//		the ten is recorded to the screen. This is done to test the run times of 
+//      INSERTION_SORT, MERGE_SORT, and QUICKSORT to see how they compare against 
+//      each other and the theoretical values.
+//******************************************************************************
 
+void INSERTION_SORT(int A[],int A_length);
+void MERGE_SORT(int B[], int p, int r);
+void MERGE(int B[], int p, int q, int r);
+void QUICKSORT(int C[], int p, int r);
+int PARTITION(int C[], int p, int r);
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function Name: INSERTION_SORT
+//Precondition: The unsorted array and size of the array has been passed to the function
+//Postcondition: The array has been sorted.
+//Description: Insertion sort is a sorting algorithm that transfers the elements one at a time to the right position.
+//    It builds the final list one at a time, with the movement of the higher-ranked element.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void INSERTION_SORT(int A[], int A_length) {
 	int i, key, j;
 
@@ -28,10 +53,17 @@ void INSERTION_SORT(int A[], int A_length) {
 		}
 		A[i + 1] = key;
 	}
-	//print(A, A_length, "INSERTION_SORT");
 }
 
-int * MERGE_SORT(int B[], int p, int r) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function Name: MERGE_SORT
+//Precondition: The unsorted array, intial position and final position of the array has been passed to the function
+//Postcondition: The array has been sorted using divide and conquer
+//Description: Merge Sort is a Divide and Conquer algorithm. It divides an input array into two halves and 
+//    recursively calls itself for the two halves. The array is recursively divided in two halves until the size 
+//    becomes 1. Then the merge function starts merging the arrays back until the array is merged completely
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void MERGE_SORT(int B[], int p, int r) {
 	int q=1;
 	if (p < r) {
 		q = (p + r) / 2;
@@ -40,9 +72,14 @@ int * MERGE_SORT(int B[], int p, int r) {
 		MERGE_SORT(B, q + 1, r);
 		MERGE(B, p, q, r);
 	}
-	return B;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function Name: MERGE
+//Precondition: The array, intial, final, and divided positions are passed to the function.
+//Postcondition: The array has been merged together.
+//Description: The merge function is used for merging two halves together.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void MERGE(int B[], int p, int q, int r) {	
 	int n1 = q - p + 1;
 	int n2 = r - q;
@@ -74,15 +111,28 @@ void MERGE(int B[], int p, int q, int r) {
 	}
 }
 
-int * QUICKSORT(int C[], int p, int r) {
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function Name: QUICKSORT
+//Precondition: The unsorted array, intial, and final positions has been passed to the function
+//Postcondition: The array has been sorted.
+//Description:  QuickSort is a Divide and Conquer algorithm. The algorithm selects an element as pivot and partitions the 
+//    array around the pivot.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void QUICKSORT(int C[], int p, int r) {
 	if (p < r) {
 		int q = PARTITION(C, p, r);
 		QUICKSORT(C, p, q - 1);
 		QUICKSORT(C, q + 1, r);
 	}
-	return C;
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Function Name: PARTITION
+//Precondition: The array, intial, and final positions has been passed to the function
+//Postcondition: The array has been 
+//Description:  Partition selects the last element as the pivot and orders the array by having all the elements 
+//    smaller than the pivot to the left and all the elements larger than the pivot on the right.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 int PARTITION(int C[], int p, int r) {
 	int pivot = C[r];
 	int i = p - 1;
@@ -100,45 +150,21 @@ int PARTITION(int C[], int p, int r) {
 	return (i+1);
 }
 
-void print(int array[], int numElements, string functionName) {
-	cout << "inside " << functionName << ": ";
-	for (int k = 0; k <= numElements; k++) {
-		cout << array[k] << " ";
-	}
-	cout << endl;
-}
-
 int main() {
+	//used to format the output
 	cout.setf(ios::fixed);
 	cout.precision(1);
 
-	ofstream file;
-	file.open("results.txt");
-
-	//INSERTION_SORT T(n)=theta(n^2)
-	//MERGE_SORT T(n)=theta(nlgn)
-	//QUICKSORT worst case RT=theta(n^2) or expected RT=theta(nlgn)
-	//partition RT=theta(n)
-	//merge RT=theta(n)
-
-
-	/*int A[] = { 10,9,8,7,6,5,4,3,2,1 };
-	int B[] = { 10,9,8,7,6,5,4,3,2,1 };
-	int C[] = { 10,9,8,7,6,5,4,3,2,1 };
-
-	int A_length = sizeof(A) / sizeof(*A);
-
-	INSERTION_SORT(A, A_length-1);
-	int *bArray = MERGE_SORT(B, 0, A_length - 1);
-	int *cArray = QUICKSORT(C, 0, A_length - 1);
-
-	print(bArray, A_length - 1, "MERGE_SORT");
-	print(cArray, A_length - 1, "QUICKSORT");*/
-
+	//number of times array is sorted
 	const int m = 10;
+	//total number of elements in array
 	const int nf = 100000;
+	//start amount for the number of elements in array
 	const int ns = 5000;
+	//incrementing the array size
 	const int sigma = 5000;
+
+	//dynamic arrays used for the program
 	int **A = new int*[m];
 	for (int i = 0; i <= m-1; i++) {
 		A[i] = new int[nf];
@@ -147,6 +173,7 @@ int main() {
 	int *B = new int[nf];
 	int *C = new int[nf];
 	int *D = new int[nf];
+	
 	double **talg1 = new double*[m];
 	for (int j = 0; j <= m-1; j++) {
 		talg1[j] = new double[nf];
@@ -160,39 +187,56 @@ int main() {
 		talg3[j] = new double[nf];
 	}
 
+	//used for the average run times
 	double tavgalg = 0;
 	double tavgAlgArray[nf];
 	
+	//fills array A with random values 
 	for (int i = 0; i <= m-1; i++) {
 		for (int j = 0; j <= nf-1; j++) {
 			A[i][j] = rand();
 		}
 	}
 
-	file << "INSERTION_SORT***********************************************" << endl;
-	file << "TIME" << "   " << "n" << endl;
+	//runs INSERTION_SORT
+	//starts at 5000 element arrays and increments by 5000
 	for (int n = ns; n <= nf; n = n + sigma) {
+		
+		//runs each variation 10 times
 		for (int i = 0; i <= m-1; i++) {
+		
+			//stores the value of the specific A array in B
 			for (int k = 0; k <= n-1; k++) {
 				B[k] = A[i][k];
 			}
+			
+			//records start time
 			auto t1 = chrono::steady_clock::now();
+			
 			INSERTION_SORT(B, n - 1);
+			
+			//records end time
 			auto t2 = chrono::steady_clock::now();
+			
+			//computes the difference
 			double elapsed_time = double(chrono::duration_cast<chrono::milliseconds>(t2 - t1).count());
+			
+			//stores time in array
 			talg1[i][n] = elapsed_time;
 		}
+		
+		//adds all the times up
 		for (int i = 0; i <= m-1; i++) {
 			tavgalg = tavgalg + talg1[i][n];
 		}
+		
+		//divides by 10 to get average
 		tavgalg = tavgalg / m;
 		tavgAlgArray[n-1] = tavgalg;
 		cout << endl << "Avergage Time in Milliseconds to run INSERTION_SORT: " << tavgalg << " for: " << n << endl;
-		file << tavgalg << "," << n << endl;
 	}
 	
-	file << "MERGE_SORT****************************************************" << endl;
-	file << "TIME" << "   " << "n" << endl;
+	//same for MERGE_SORT
 	for (int n = ns; n <= nf; n = n + sigma) {
 		for (int i = 0; i <= m - 1; i++) {
 			for (int k = 0; k <= n - 1; k++) {
@@ -209,12 +253,10 @@ int main() {
 		}
 		tavgalg = tavgalg / m;
 		tavgAlgArray[n-1] = tavgalg;
-		cout << endl << "Avergage Time in Milliseconds to run MERGE_SORT: " << tavgalg << " for: " << n << endl;
-		file << tavgalg << "," << n << endl;
+		cout << endl << "Avergage Time in Milliseconds to run MERGE_SORT: " << tavgalg << " for: " << n << endl;	
 	}
 
-	file << "QUICKSORT*************************************************************" << endl;
-	file << "TIME" << "   " << "n" << endl;
+	//same for QUICKSORT
 	for (int n = ns; n <= nf; n = n + sigma) {
 		for (int i = 0; i <= m - 1; i++) {
 			for (int k = 0; k <= n - 1; k++) {
@@ -232,10 +274,7 @@ int main() {
 		tavgalg = tavgalg / m;
 		tavgAlgArray[n-1] = tavgalg;
 		cout << endl << "Avergage Time in Milliseconds to run QUICKSORT: " << tavgalg << " for: " << n << endl;
-		file << tavgalg << "," << n << endl;
 	}
-
-	file.close();
 
 	return 0;
 }
